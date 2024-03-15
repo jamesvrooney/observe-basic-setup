@@ -1,7 +1,7 @@
 services:
 
   tempo:
-    image: grafana/tempo:latest
+    image: grafana/tempo:1.5.0
     command: [ "-search.enabled=true", "-config.file=/etc/tempo.yaml" ]
     container_name: tempo
     hostname: tempo
@@ -22,11 +22,11 @@ services:
     container_name: prometheus
     hostname: prometheus
     command:
-      - --config.file=/etc/prometheus.yaml
+      - --config.file=/etc/prometheus.yml
       - --web.enable-remote-write-receiver
       - --enable-feature=exemplar-storage
     volumes:
-      - ./o11y-backend/prometheus.yaml:/etc/prometheus.yaml
+      - ./o11y-backend/prometheus.yml:/etc/prometheus.yml
     ports:
       - "9090:9090"
     healthcheck:
@@ -45,7 +45,7 @@ services:
         condition: service_healthy
     volumes:
       - ./o11y-backend/grafana-bootstrap.ini:/etc/grafana/grafana.ini
-      - ./o11y-backend/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./o11y-backend/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
