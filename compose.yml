@@ -57,6 +57,22 @@ services:
       retries: 10
       test: wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
+  collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: collector
+    hostname: collector
+    depends_on:
+      tempo:
+        condition: service_healthy
+      prometheus:
+        condition: service_healthy
+    command: [ "--config=/etc/collector-config.yaml" ]
+    volumes:
+      - ./collector-config-local.yaml:/etc/collector-config.yaml
+    ports:
+      - "5555:5555"
+      - "6666:6666"
+
 networks:
   default:
     name: inst-java-apps-using-otel
