@@ -11,7 +11,8 @@ AGENT_FILE=./otel-java-agent/opentelemetry-javaagent.jar
 
 export OTEL_TRACES_EXPORTER=otlp
 export OTEL_METRICS_EXPORTER=otlp
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:5555
+export OTEL_LOGS_EXPORTER=otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 #export OTEL_RESOURCE_ATTRIBUTES=service.name=observe-basic-setup,service.version=1.0
 #export OTEL_RESOURCE_ATTRIBUTES=service.name=hello-app,service.version=1.0
 
@@ -20,4 +21,5 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:5555
 #export OTEL_METRIC_EXPORT_INTERVAL=1000
 
 #java -javaagent:./${AGENT_FILE} -jar target/hello-app-1.0.jar
-java -javaagent:./${AGENT_FILE} -jar build/libs/observe-basic-setup-0.0.1-SNAPSHOT.jar
+#java -javaagent:./${AGENT_FILE} -jar build/libs/observe-basic-setup-0.0.1-SNAPSHOT.jar
+java -jar build/libs/observe-basic-setup-0.0.1-SNAPSHOT.jar

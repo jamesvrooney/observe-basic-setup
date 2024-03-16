@@ -1,12 +1,12 @@
 receivers:
   otlp:
     protocols:
-      grpc:
-        endpoint: 0.0.0.0:5555
+      http:
+#      grpc:
 
 exporters:
   logging:
-    loglevel: debug
+    verbosity: detailed
 
 service:
   pipelines:
@@ -14,5 +14,8 @@ service:
       receivers: [otlp]
       exporters: [logging]
     traces:
+      receivers: [otlp]
+      exporters: [logging]
+    logs:
       receivers: [otlp]
       exporters: [logging]

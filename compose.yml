@@ -11,7 +11,7 @@ services:
       - ./tempo-data:/tmp/tempo
     ports:
       - "3200:3200"
-      - "4317:4317"
+      - "4417:4417"
     healthcheck:
       interval: 5s
       retries: 10
@@ -58,9 +58,11 @@ services:
       test: wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
   collector:
-    image: otel/opentelemetry-collector:latest
+#    image: otel/opentelemetry-collector:latest
+#    image: otel/opentelemetry-collector-contrib:0.96.0
+    image: otel/opentelemetry-collector:0.96.0
     container_name: collector
-    hostname: collector
+#    hostname: collector
     depends_on:
       tempo:
         condition: service_healthy
@@ -70,8 +72,11 @@ services:
     volumes:
       - ./collector-config-local.yaml:/etc/collector-config.yaml
     ports:
-      - "5555:5555"
-      - "6666:6666"
+      - 4318:4318
+#      - 4317:4317
+#      - 55679:55679
+    expose:
+      - 4318
 
 networks:
   default:
